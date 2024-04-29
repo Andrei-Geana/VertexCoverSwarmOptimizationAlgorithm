@@ -8,11 +8,15 @@ class SwarmAlgorithm
 public:
 	SwarmAlgorithm(Graph* graph);
 	~SwarmAlgorithm();
-	void RunAlgorithm();
+	Individual* RunAlgorithm();
 	void MakeIteration();
+
+	//Global selection
 	void ResetBestIndividualForGlobalBest();
-	void ResetBestIndividualForNeighbourBest();
 	void RemakeMapOfScores();
+	//Neighbourhood selection
+	void ResetBestIndividualForNeighbourBest();
+	//Selection + Mutation
 	void UpdateAllGenes();
 
 	void PrintPopulation() const;

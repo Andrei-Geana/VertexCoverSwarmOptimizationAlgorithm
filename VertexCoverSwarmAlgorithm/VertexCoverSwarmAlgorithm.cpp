@@ -39,10 +39,53 @@
 *   
 */
 
+//score => numberOfIndividualsWithScore
+void WriteResultsToFile(const std::map<double, int>& percentages, const std::map<double, std::unordered_set<Individual, Individual::Hash, Individual::IsEqual>>& individuals)
+{
+    std::ofstream out(FILE_PATH_TO_RESULTS);
+    if (!out)
+        throw std::exception("Unable to open file.");
+
+    int totalNumberOfIndividuals{ 0 };
+    for (const auto& element : percentages)
+    {
+        totalNumberOfIndividuals += element.second;
+    }
+
+    for (const auto& element : percentages)
+    {
+        double percentage{ static_cast<double>(element.second) / totalNumberOfIndividuals * 100.0 };
+
+        out << "SCORE: " << element.first << " =>" << "\tNUMBER OF INDIVIDUALS: " << element.second << "\tPERCENTAGE: " << percentage << "%" << std::endl;
+
+        for (const auto& individual : individuals.at(element.first))
+        {
+            out << individual << std::endl;
+        }
+        out << std::endl;
+    }
+
+    out.close();
+}
+
 int main()
 {
 	Graph* graph = Graph::GetGraphFromFile();
 	SwarmAlgorithm algorithm{ graph };
-	algorithm.RunAlgorithm();
+
+    std::map<double, int> results;
+    std::map<double, std::unordered_set<Individual, Individual::Hash, Individual::IsEqual>> individuals;
+    Individual* individual = nullptr;
+    for (size_t _{ 0u }; _ < NUMBER_OF_RUNS; ++_)
+    {
+        SwarmAlgorithm algorithm{ graph };
+        std::cout << std::endl;
+        individual = algorithm.RunAlgorithm();
+        auto score = individual->GetScore();
+        results[score]++;
+        individuals[score].insert(std::move(*individual));
+        WriteResultsToFile(results, individuals);
+    }
+   // WriteResultsToFile(results, individuals);
 	return 0;
 }

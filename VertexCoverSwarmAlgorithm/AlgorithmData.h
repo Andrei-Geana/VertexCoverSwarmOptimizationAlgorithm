@@ -2,8 +2,9 @@
 #include <string>
 
 inline int NODES_NUMBER;
+inline const int NUMBER_OF_RUNS = 100;
 inline const int POPULATION_SIZE = 200;
-inline const int NUMBER_OF_ITERATIONS = 50;
+inline const int NUMBER_OF_ITERATIONS = 20;
 inline const double IS_SOLUTION_POINTS = 40;
 inline const double INERTIA = 1;
 inline const bool GLOBAL_BEST_SELECTED = false;

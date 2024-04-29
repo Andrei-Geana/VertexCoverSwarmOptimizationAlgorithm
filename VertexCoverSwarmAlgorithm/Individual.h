@@ -16,6 +16,32 @@ public:
     void UpdateGenes();
 
     double GetScore() const;
+
+public:
+    class IsEqual
+    {
+    public:
+        bool operator()(const Individual& a, const Individual& b) const
+        {
+            return a.genes->chromosome == b.genes->chromosome;
+        }
+    };
+
+    class Hash
+    {
+    public:
+        size_t operator()(const Individual& p) const
+        {
+            std::hash<bool> hasher;
+            size_t answer = 0;
+            for (const bool& i : p.genes->chromosome)
+            {
+                answer ^= hasher(i) + 0x9e3779b9 +
+                    (answer << 6) + (answer >> 2);
+            }
+            return answer;
+        }
+    };
 public:
 
     friend std::ostream& operator<<(std::ostream& out, const Individual& individ);
