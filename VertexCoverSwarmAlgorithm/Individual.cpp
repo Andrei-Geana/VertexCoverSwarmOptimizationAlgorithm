@@ -68,7 +68,10 @@ void Individual::UpdateGenes()
         }
 
         velocity[index] = newValue;
-        if (Helper::GetChance() < Helper::SigmoidFunction(velocity[index]))
+
+        auto s = Helper::SigmoidFunction(velocity[index]);
+        auto chance = Helper::GetChance();
+        if (chance < s)
         {
             genes->chromosome[index] = 1;
         }
@@ -90,6 +93,11 @@ void Individual::UpdateGenes()
 
 }
 
+double Individual::GetScore() const
+{
+    return currentScore;
+}
+
 std::ostream& operator<<(std::ostream& out, const Individual& individ)
 {
     out << "Genes: ";
@@ -97,6 +105,6 @@ std::ostream& operator<<(std::ostream& out, const Individual& individ)
     {
         out << chromosome << ' ';
     }
-    out << "\tScore: " << individ.currentScore << std::endl;
+    out << "\tScore: " << individ.currentScore;
     return out;
 }

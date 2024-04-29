@@ -144,6 +144,7 @@
     <ClInclude Include="Individual.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="iesire.txt" />
     <Text Include="intrare.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

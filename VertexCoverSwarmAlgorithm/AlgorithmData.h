@@ -3,7 +3,8 @@
 
 inline int NODES_NUMBER;
 inline const int POPULATION_SIZE = 200;
-inline const double IS_SOLUTION_POINTS = 100;
+inline const int NUMBER_OF_ITERATIONS = 100;
+inline const double IS_SOLUTION_POINTS = 40;
 inline const double INERTIA = 1;
 
 inline const std::string FILE_PATH_TO_GRAPH{ "intrare.txt" };

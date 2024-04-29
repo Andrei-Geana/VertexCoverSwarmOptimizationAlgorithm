@@ -33,6 +33,6 @@ public:
 
         static double SigmoidFunction(double value)
         {
-            return 1 / (1.0 + std::exp(value));
+            return 1 / (1.0 + std::exp(-value));
         }
 };

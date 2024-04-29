@@ -43,5 +43,6 @@ int main()
 {
 	Graph* graph = Graph::GetGraphFromFile();
 	SwarmAlgorithm algorithm{ graph };
+	algorithm.RunAlgorithm();
 	return 0;
 }

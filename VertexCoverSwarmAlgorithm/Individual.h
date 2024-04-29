@@ -14,6 +14,8 @@ public:
     Individual(Individual* i);
     void SetBestIndividualInPopulation(Individual* individ);
     void UpdateGenes();
+
+    double GetScore() const;
 public:
 
     friend std::ostream& operator<<(std::ostream& out, const Individual& individ);
