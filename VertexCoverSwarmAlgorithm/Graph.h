@@ -4,7 +4,7 @@
 #include <unordered_set>
 
 #include "Arch.h"
-#include "Individual.h"
+#include "Genes.h"
 
 class Graph
 {

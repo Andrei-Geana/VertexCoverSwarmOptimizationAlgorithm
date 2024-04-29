@@ -1,6 +1,6 @@
 // VertexCoverSwarmAlgorithm.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
+#include "SwarmAlgorithm.h"
 #include <iostream>
 
 //
@@ -41,5 +41,7 @@
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	Graph* graph = Graph::GetGraphFromFile();
+	SwarmAlgorithm algorithm{ graph };
+	return 0;
 }

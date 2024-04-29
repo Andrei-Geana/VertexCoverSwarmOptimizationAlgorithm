@@ -1,10 +1,12 @@
 #pragma once
+#include "AlgorithmData.h"
 #include <random>
 #include <cmath>
 
+
 class Helper 
 {
-    public:
+public:
         static int GetRandomIndex(int min, int max)
         {
             std::random_device rd;

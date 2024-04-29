@@ -1,15 +1,14 @@
 #pragma once
+#include "Genes.h"
+#include "Graph.h"
+
 #include <iostream>
 #include <vector>
 #include <random>
-#include "Genes.h"
-#include "Graph.h"
-#include "AlgorithmData.h"
 
 class Individual
 {
 public:
-    Individual();
     Individual(Graph* workingGraph, Genes* chromosomes);
     Individual(Graph* workingGraph);
     Individual(Individual* i);

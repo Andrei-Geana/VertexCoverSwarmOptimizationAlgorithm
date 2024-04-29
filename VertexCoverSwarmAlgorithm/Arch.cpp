@@ -1,16 +1,16 @@
 #include "Arch.h"
 
-inline Arch::Arch(int x, int y)
+Arch::Arch(int x, int y)
 {
     FromToNodes = std::make_pair(x, y);
 }
 
-inline int Arch::From() const
+int Arch::From() const
 {
     return FromToNodes.first;
 }
 
-inline int Arch::To() const
+int Arch::To() const
 {
     return FromToNodes.second;
 }

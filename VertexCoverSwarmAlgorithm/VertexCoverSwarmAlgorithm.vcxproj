@@ -128,13 +128,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Arch.cpp" />
+    <ClCompile Include="Graph.cpp" />
+    <ClCompile Include="Individual.cpp" />
+    <ClCompile Include="SwarmAlgorithm.cpp" />
+    <ClCompile Include="SwarmAlgorithm.h" />
     <ClCompile Include="VertexCoverSwarmAlgorithm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AlgorithmData.h" />
     <ClInclude Include="Arch.h" />
+    <ClInclude Include="Genes.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="Helper.h" />
     <ClInclude Include="Individual.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="intrare.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

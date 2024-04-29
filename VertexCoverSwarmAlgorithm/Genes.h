@@ -1,8 +1,7 @@
 #pragma once
-
+#include <vector>
 #include "Helper.h"
 
-#include <vector>
 struct Genes 
 {
 	Genes(size_t size)

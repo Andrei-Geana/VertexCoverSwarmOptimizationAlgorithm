@@ -25,7 +25,7 @@ Graph* Graph::GetGraphFromFile(const std::string& FilePath)
     return graph;
 }
 
-inline Graph::Graph(int n)
+Graph::Graph(int n)
 {
     for (int i = 0; i < n; ++i)
     {
@@ -33,7 +33,7 @@ inline Graph::Graph(int n)
     }
 }
 
-inline void Graph::AddArch(int from, int to)
+void Graph::AddArch(int from, int to)
 {
     if (!nodes.contains(from))
         throw std::exception("start node not in graph");
@@ -43,7 +43,7 @@ inline void Graph::AddArch(int from, int to)
     arches.insert(Arch{ from, to });
 }
 
-inline bool Graph::IsSolution(const Genes* genes) const
+bool Graph::IsSolution(const Genes* genes) const
 {
     if (genes->chromosome.size() != nodes.size())
         throw std::exception("genes size not equal to number of nodes in graph");
@@ -60,7 +60,7 @@ inline bool Graph::IsSolution(const Genes* genes) const
     return true;
 }
 
-inline int Graph::GetNumberOfNotVerifiedArch(const Genes* genes) const
+int Graph::GetNumberOfNotVerifiedArch(const Genes* genes) const
 {
     int count{ 0 };
     for (const Arch& arc : arches)
@@ -74,7 +74,7 @@ inline int Graph::GetNumberOfNotVerifiedArch(const Genes* genes) const
     return count;
 }
 
-inline void Graph::PrintAllArches()
+void Graph::PrintAllArches()
 {
     for (const Arch& elem : arches)
     {
@@ -82,7 +82,7 @@ inline void Graph::PrintAllArches()
     }
 }
 
-inline int Graph::GetNumberOfArches() const
+int Graph::GetNumberOfArches() const
 {
     return (int)arches.size();
 }

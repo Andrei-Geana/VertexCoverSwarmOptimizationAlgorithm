@@ -1,11 +1,6 @@
 #include "Individual.h"
 
-inline Individual::Individual(): baseGraph{nullptr}, genes{nullptr}, bestPreviousGenes{nullptr}, bestIndividualInPopulation{nullptr}
-{
-    /*EMPTY*/
-}
-
-inline Individual::Individual(Graph* workingGraph, Genes* chromosomes)
+Individual::Individual(Graph* workingGraph, Genes* chromosomes)
 {
     baseGraph = workingGraph;
     genes = chromosomes;
@@ -13,13 +8,13 @@ inline Individual::Individual(Graph* workingGraph, Genes* chromosomes)
     velocity.resize(NODES_NUMBER, 0);
 }
 
-inline Individual::Individual(Graph* workingGraph) : baseGraph{ workingGraph }, genes{ Genes::GetGenes(NODES_NUMBER)}, bestPreviousGenes{nullptr}, bestIndividualInPopulation{nullptr},
+Individual::Individual(Graph* workingGraph) : baseGraph{ workingGraph }, genes{ Genes::GetGenes(NODES_NUMBER)}, bestPreviousGenes{nullptr}, bestIndividualInPopulation{nullptr},
 currentScore{ GetFitnessScore() }, bestPreviousScore{ 0.0 }
 {
     velocity.resize(NODES_NUMBER, 0);
 }
 
-inline Individual::Individual(Individual* i): baseGraph { i->baseGraph }, genes{ i->genes }, bestPreviousGenes{ i->bestPreviousGenes }, bestIndividualInPopulation{ i->bestIndividualInPopulation },
+Individual::Individual(Individual* i): baseGraph { i->baseGraph }, genes{ i->genes }, bestPreviousGenes{ i->bestPreviousGenes }, bestIndividualInPopulation{ i->bestIndividualInPopulation },
 currentScore{ i->currentScore }, bestPreviousScore{ i->bestPreviousScore }
 {
     /*EMTPY*/
