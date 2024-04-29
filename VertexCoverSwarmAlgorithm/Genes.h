@@ -10,6 +10,12 @@ struct Genes
 		chromosome.resize(size);
 	}
 
+	Genes(Genes* genes)
+	{
+		chromosome.resize(genes->chromosome.size());
+		chromosome = genes->chromosome;
+	}
+
 	static Genes* GetGenes(size_t size = NODES_NUMBER)
 	{
 		Genes* currentGenes = new Genes{ size };
@@ -20,6 +26,8 @@ struct Genes
 		}
 		return currentGenes;
 	}
+
+
 
 	std::vector<bool> chromosome;
 };

@@ -54,6 +54,8 @@ int Individual::GetNumberOf1s() const
 
 void Individual::UpdateGenes()
 {
+    Genes* copyOfCurrentGenes = new Genes{ genes };
+
     double newValue{ 0.0 }, phi1{ 0.0 }, phi2{ 0.0 };
     for (size_t index{ 0u }; index < genes->chromosome.size(); ++index)
     {
@@ -73,13 +75,24 @@ void Individual::UpdateGenes()
         velocity[index] = newValue;
         if (Helper::GetChance() < Helper::SigmoidFunction(velocity[index]))
         {
-            genes[index] = 1;
+            genes->chromosome[index] = 1;
         }
         else
         {
-            genes[index] = 0;
+            genes->chromosome[index] = 0;
         }
     }
+
+    if (currentScore > bestPreviousScore)
+    {
+        if(bestPreviousGenes != nullptr)
+            delete(bestPreviousGenes);
+        bestPreviousGenes = copyOfCurrentGenes;
+        bestPreviousScore = currentScore;
+    }
+
+    currentScore = GetFitnessScore();
+
 }
 
 std::ostream& operator<<(std::ostream& out, const Individual& individ)
