@@ -31,6 +31,13 @@
 *               fi1 si fi2 (daca sunt diferite la fiecare individ)
 */
 
+/*
+* Populatia:
+*   -vector de pointeri catre indivizi / vector de indivizi
+*   -la fiecare iteratie, se reface un map<double, pointer la individ> pentru a defini/a gasi mai usor vecinii si pe cel mai bun
+*   -se actualizeaza datele
+*   
+*/
 
 int main()
 {
