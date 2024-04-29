@@ -1,36 +1,42 @@
 #include "Individual.h"
 
+inline Individual::Individual(): baseGraph{nullptr}, genes{nullptr}, bestPreviousGenes{nullptr}, bestIndividualInPopulation{nullptr}
+{
+    /*EMPTY*/
+}
+
 inline Individual::Individual(Graph* workingGraph, Genes* chromosomes)
 {
     baseGraph = workingGraph;
     genes = chromosomes;
     currentScore = GetFitnessScore();
+    velocity.resize(NODES_NUMBER, 0);
 }
 
-inline Individual::Individual(Individual* i)
+inline Individual::Individual(Graph* workingGraph) : baseGraph{ workingGraph }, genes{ Genes::GetGenes(NODES_NUMBER)}, bestPreviousGenes{nullptr}, bestIndividualInPopulation{nullptr},
+currentScore{ GetFitnessScore() }, bestPreviousScore{ 0.0 }
 {
-    baseGraph = i->baseGraph;
-    genes = i->genes;
-    bestPreviousGenes = i->bestPreviousGenes;
-    bestGenesInPopulation = i->bestGenesInPopulation;
-    currentScore = i->currentScore;
-    bestPreviousScore = i->bestPreviousScore;
+    velocity.resize(NODES_NUMBER, 0);
 }
 
-inline double Individual::GetChance(double min, double max)
+inline Individual::Individual(Individual* i): baseGraph { i->baseGraph }, genes{ i->genes }, bestPreviousGenes{ i->bestPreviousGenes }, bestIndividualInPopulation{ i->bestIndividualInPopulation },
+currentScore{ i->currentScore }, bestPreviousScore{ i->bestPreviousScore }
 {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_real_distribution<> distrib(min, max);
-    return distrib(gen);
+    /*EMTPY*/
 }
+
+void Individual::SetBestIndividualInPopulation(Individual* individ)
+{
+    bestIndividualInPopulation = individ;
+}
+
 
 double Individual::GetFitnessScore() const
 {
     double score{ 0.0 };
     score = ((int)genes->chromosome.size() - GetNumberOf1s());
     score += (baseGraph->GetNumberOfArches() - baseGraph->GetNumberOfNotVerifiedArch(genes));
-    score += baseGraph->IsSolution(genes) * IsSolutionPoints;
+    score += baseGraph->IsSolution(genes) * IS_SOLUTION_POINTS;
     return score;
 }
 
@@ -44,6 +50,36 @@ int Individual::GetNumberOf1s() const
     }
     return count;
 
+}
+
+void Individual::UpdateGenes()
+{
+    double newValue{ 0.0 }, phi1{ 0.0 }, phi2{ 0.0 };
+    for (size_t index{ 0u }; index < genes->chromosome.size(); ++index)
+    {
+        newValue = INERTIA * velocity[index];
+        if (bestPreviousGenes != nullptr)
+        {
+            phi1 = Helper::GetChance();
+            newValue += phi1 * (bestPreviousGenes->chromosome[index] - genes->chromosome[index]);
+        }
+
+        if (bestIndividualInPopulation != nullptr)
+        {
+            phi2 = Helper::GetChance();
+            newValue += phi2 * (bestIndividualInPopulation->genes->chromosome[index] - genes->chromosome[index]);
+        }
+
+        velocity[index] = newValue;
+        if (Helper::GetChance() < Helper::SigmoidFunction(velocity[index]))
+        {
+            genes[index] = 1;
+        }
+        else
+        {
+            genes[index] = 0;
+        }
+    }
 }
 
 std::ostream& operator<<(std::ostream& out, const Individual& individ)

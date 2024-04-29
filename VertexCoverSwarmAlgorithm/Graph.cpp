@@ -1,6 +1,29 @@
 #include "Graph.h"
 
-inline Graph::Graph() {/*EMPTY*/ }
+Graph* Graph::GetGraphFromFile(const std::string& FilePath)
+{
+    std::ifstream fin{ FilePath };
+    if (!fin.is_open())
+    {
+        throw std::exception("unable to open file to read graph");
+    }
+    fin >> NODES_NUMBER;
+    Graph* graph = new Graph{ NODES_NUMBER };
+    int from{}, to{};
+    while (fin >> from >> to)
+    {
+        try
+        {
+            graph->AddArch(from, to);
+        }
+        catch (std::exception ex)
+        {
+            std::cout << ex.what() << " for arch: (" << from << ", " << to << ")" << std::endl;
+        }
+    }
+    fin.close();
+    return graph;
+}
 
 inline Graph::Graph(int n)
 {

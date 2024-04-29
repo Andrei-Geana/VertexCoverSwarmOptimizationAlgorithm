@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <fstream>
 #include <unordered_set>
 
 #include "Arch.h"
@@ -8,7 +9,8 @@
 class Graph
 {
 public:
-    Graph();
+    static Graph* GetGraphFromFile(const std::string& FilePath = FILE_PATH_TO_GRAPH);
+public:
     Graph(int n);
 
     void AddArch(int from, int to);

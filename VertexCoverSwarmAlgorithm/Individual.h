@@ -9,28 +9,28 @@
 class Individual
 {
 public:
-    Individual() {/*EMPTY*/ }
-
+    Individual();
     Individual(Graph* workingGraph, Genes* chromosomes);
-
+    Individual(Graph* workingGraph);
     Individual(Individual* i);
-
+    void SetBestIndividualInPopulation(Individual* individ);
+    void UpdateGenes();
 public:
 
     friend std::ostream& operator<<(std::ostream& out, const Individual& individ);
-
-    static double GetChance(double min = 0, double max = 1);
 
 private:
     double GetFitnessScore() const;
 
     int GetNumberOf1s() const;
 
+
 private:
     Graph* baseGraph;
     Genes* genes;
+    std::vector<double> velocity;
     Genes* bestPreviousGenes;
-    Genes* bestGenesInPopulation;
+    Individual* bestIndividualInPopulation;
     double currentScore;
     double bestPreviousScore;
 };
