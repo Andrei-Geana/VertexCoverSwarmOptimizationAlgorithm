@@ -11,9 +11,11 @@ class Individual
 public:
     Individual(Graph* workingGraph, Genes* chromosomes);
     Individual(Graph* workingGraph);
-    Individual(Individual* i);
+    Individual(Individual* i, bool choice);
     void SetBestIndividualInPopulation(Individual* individ);
     void UpdateGenes();
+
+    Genes* GetGenes() const;
 
     double GetScore() const;
 

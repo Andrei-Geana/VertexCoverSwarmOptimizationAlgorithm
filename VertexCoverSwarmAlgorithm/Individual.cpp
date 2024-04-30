@@ -3,7 +3,7 @@
 Individual::Individual(Graph* workingGraph, Genes* chromosomes)
 {
     baseGraph = workingGraph;
-    genes = chromosomes;
+    genes = new Genes{ chromosomes };
     currentScore = GetFitnessScore();
     velocity.resize(NODES_NUMBER, 0);
 }
@@ -14,10 +14,27 @@ currentScore{ GetFitnessScore() }, bestPreviousScore{ 0.0 }
     velocity.resize(NODES_NUMBER, 0);
 }
 
-Individual::Individual(Individual* i): baseGraph { i->baseGraph }, genes{ i->genes }, bestPreviousGenes{ i->bestPreviousGenes }, bestIndividualInPopulation{ i->bestIndividualInPopulation },
-currentScore{ i->currentScore }, bestPreviousScore{ i->bestPreviousScore }
+Individual::Individual(Individual* i, bool choice) : baseGraph{ i->baseGraph }, genes{ new Genes{i->genes} }, bestPreviousGenes{ i->bestPreviousGenes }, bestIndividualInPopulation{ i->bestIndividualInPopulation },
+currentScore{ i->currentScore }, bestPreviousScore{ i->bestPreviousScore }, velocity{ i->velocity }
 {
-    /*EMTPY*/
+    //if i want just the genes and score
+    if (choice == true)
+    {
+        baseGraph = i->baseGraph;
+        genes = new Genes{ i->genes };
+        currentScore = i->currentScore;
+    }
+    //if i want "deep" copy
+    else
+    {
+        baseGraph = i->baseGraph;
+        genes = new Genes{ i->genes };
+        currentScore = i->currentScore;
+        bestPreviousGenes = i->bestPreviousGenes;
+        bestIndividualInPopulation = i->bestIndividualInPopulation;
+        bestPreviousScore = i->bestPreviousScore;
+        velocity = i->velocity;
+    }
 }
 
 void Individual::SetBestIndividualInPopulation(Individual* individ)
@@ -91,6 +108,11 @@ void Individual::UpdateGenes()
 
     currentScore = GetFitnessScore();
 
+}
+
+Genes* Individual::GetGenes() const
+{
+    return genes;
 }
 
 double Individual::GetScore() const

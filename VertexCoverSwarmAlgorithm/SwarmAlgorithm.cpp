@@ -3,10 +3,18 @@
 SwarmAlgorithm::SwarmAlgorithm(Graph* graph)
 {
 	workingGraph = graph;
-	while (population.size() != POPULATION_SIZE)
+	population = GeneratePopulation(graph);
+	bestIndividualInPopulation = nullptr;
+}
+
+SwarmAlgorithm::SwarmAlgorithm(Graph* graph, const std::vector<Individual*>& newPopulation)
+{
+	workingGraph = graph;
+	for (const auto& individual : newPopulation)
 	{
-		population.emplace_back(new Individual{ graph });
+		population.emplace_back(new Individual{ individual, true });
 	}
+	bestIndividualInPopulation = nullptr;
 }
 
 SwarmAlgorithm::~SwarmAlgorithm()
@@ -40,7 +48,10 @@ Individual* SwarmAlgorithm::RunAlgorithm()
     auto endTime = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
     std::cout << "Time taken: " << duration << " milliseconds\n";
-	return new Individual{ GetBestIndividualInPopulation() };
+	/*int x;
+	std::cin >> x;*/
+	PrintPopulation();
+	return new Individual{ GetBestIndividualInPopulation(), true };
 }
 
 void SwarmAlgorithm::MakeIteration()
@@ -48,17 +59,16 @@ void SwarmAlgorithm::MakeIteration()
 	if (GLOBAL_BEST_SELECTED)
 	{
 		ResetBestIndividualForGlobalBest();
-		bestIndividualAcrossAlgorithm.emplace_back(new Individual{ bestIndividualInPopulation });
+		bestIndividualAcrossAlgorithm.emplace_back(new Individual{ bestIndividualInPopulation, true });
 	}
 	else
 	{
 		RemakeMapOfScores();
 		ResetBestIndividualForNeighbourBest();
 		bestIndividualInPopulation = mapOfScores.rbegin()->second[0];
-		bestIndividualAcrossAlgorithm.emplace_back(new Individual{ bestIndividualInPopulation });
+		bestIndividualAcrossAlgorithm.emplace_back(new Individual{ bestIndividualInPopulation, true });
 	}
 	//std::cout << *bestIndividualInPopulation << std::endl;
-
 	UpdateAllGenes();
 }
 
@@ -129,6 +139,16 @@ void SwarmAlgorithm::SaveResults(const std::string& FilePath) const
 		out << *individ << std::endl;
 	}
 	out.close();
+}
+
+std::vector<Individual*> SwarmAlgorithm::GeneratePopulation(Graph* graph)
+{
+	std::vector<Individual*> newPopulation;
+	while (newPopulation.size() != POPULATION_SIZE)
+	{
+		newPopulation.emplace_back(new Individual{ graph });
+	}
+	return newPopulation;
 }
 
 Individual* SwarmAlgorithm::GetBestIndividualInPopulation() const

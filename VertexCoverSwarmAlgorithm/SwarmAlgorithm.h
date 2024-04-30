@@ -7,6 +7,7 @@ class SwarmAlgorithm
 {
 public:
 	SwarmAlgorithm(Graph* graph);
+	SwarmAlgorithm(Graph* graph, const std::vector<Individual*>& newPopulation);
 	~SwarmAlgorithm();
 	Individual* RunAlgorithm();
 	void MakeIteration();
@@ -19,9 +20,15 @@ public:
 	//Selection + Mutation
 	void UpdateAllGenes();
 
+
 	void PrintPopulation() const;
 
 	void SaveResults(const std::string& FilePath = FILE_PATH_TO_RESULTS) const;
+
+public:
+
+	static std::vector<Individual*> GeneratePopulation(Graph* graph);
+
 private:
 	Individual* GetBestIndividualInPopulation() const;
 

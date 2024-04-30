@@ -71,19 +71,21 @@ void WriteResultsToFile(const std::map<double, int>& percentages, const std::map
 int main()
 {
 	Graph* graph = Graph::GetGraphFromFile();
-	SwarmAlgorithm algorithm{ graph };
+    std::vector<Individual*> basePopulation{ SwarmAlgorithm::GeneratePopulation(graph) };
+
+	//SwarmAlgorithm algorithm{ graph, basePopulation };
 
     std::map<double, int> results;
     std::map<double, std::unordered_set<Individual, Individual::Hash, Individual::IsEqual>> individuals;
     Individual* individual = nullptr;
     for (size_t _{ 0u }; _ < NUMBER_OF_RUNS; ++_)
     {
-        SwarmAlgorithm algorithm{ graph };
+        SwarmAlgorithm algorithm{ graph, basePopulation };
         std::cout << std::endl;
         individual = algorithm.RunAlgorithm();
         auto score = individual->GetScore();
         results[score]++;
-        individuals[score].insert(std::move(*individual));
+        individuals[score].insert(Individual{ individual, true });
         WriteResultsToFile(results, individuals);
     }
    // WriteResultsToFile(results, individuals);
