@@ -1,16 +1,3 @@
-SCORE: 62 =>	NUMBER OF INDIVIDUALS: 13	PERCENTAGE: 13%
-Genes: 1 0 1 1 0 1 0 1 1 0 1 1 	Score: 62
-Genes: 1 1 0 1 0 1 0 1 0 1 1 1 	Score: 62
-Genes: 1 1 0 1 0 1 1 0 1 0 1 1 	Score: 62
-Genes: 1 1 1 0 1 0 1 1 0 1 0 1 	Score: 62
-Genes: 0 1 1 0 1 1 1 0 1 0 1 1 	Score: 62
-Genes: 1 0 1 1 0 1 1 0 1 0 1 1 	Score: 62
-Genes: 0 1 0 1 1 1 1 0 1 0 1 1 	Score: 62
-Genes: 1 0 1 0 1 1 1 0 1 0 1 1 	Score: 62
-Genes: 1 1 0 1 1 0 1 1 0 1 1 0 	Score: 62
-Genes: 1 0 1 1 1 1 0 1 0 1 1 0 	Score: 62
-Genes: 0 1 1 0 1 0 1 1 1 0 1 1 	Score: 62
-
-SCORE: 63 =>	NUMBER OF INDIVIDUALS: 87	PERCENTAGE: 87%
+SCORE: 63 =>	NUMBER OF INDIVIDUALS: 12	PERCENTAGE: 100%
 Genes: 0 1 0 1 0 1 1 0 1 0 1 1 	Score: 63
 

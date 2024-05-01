@@ -68,19 +68,53 @@ void WriteResultsToFile(const std::map<double, int>& percentages, const std::map
     out.close();
 }
 
+std::vector<Individual*> ReadPopulationFromGraph(Graph* graph, const std::string& FilePath = "population.txt")
+{
+    std::vector<Individual*> result;
+
+    std::ifstream file(FilePath);
+    if (!file.is_open())
+    {
+        std::cerr << "Unable to open file: " << FilePath << std::endl;
+        return result;
+    }
+
+    std::string line;
+    while (std::getline(file, line))
+    {
+        if (line.empty())
+            continue;
+
+        std::vector<bool> transformedVector;
+        for (char c : line)
+        {
+            if (c != ' ')
+                transformedVector.emplace_back(c == '1' ? 1 : 0);
+        }
+
+        if (!transformedVector.empty())
+            result.emplace_back(new Individual{graph, new Genes{transformedVector} });
+    }
+
+    file.close();
+
+    return result;
+}
+
 int main()
 {
 	Graph* graph = Graph::GetGraphFromFile();
-    std::vector<Individual*> basePopulation{ SwarmAlgorithm::GeneratePopulation(graph) };
 
-	//SwarmAlgorithm algorithm{ graph, basePopulation };
+    //std::vector<Individual*> basePopulation{ SwarmAlgorithm::GeneratePopulation(graph) };
+    std::vector<Individual*> pop = ReadPopulationFromGraph(graph);
 
     std::map<double, int> results;
     std::map<double, std::unordered_set<Individual, Individual::Hash, Individual::IsEqual>> individuals;
+
     Individual* individual = nullptr;
     for (size_t _{ 0u }; _ < NUMBER_OF_RUNS; ++_)
     {
-        SwarmAlgorithm algorithm{ graph, basePopulation };
+        SwarmAlgorithm algorithm{ graph, pop };
         std::cout << std::endl;
         individual = algorithm.RunAlgorithm();
         auto score = individual->GetScore();

@@ -9,6 +9,11 @@ struct Genes
 		chromosome.resize(size);
 	}
 
+	Genes(const std::vector<bool>& genes)
+	{
+		chromosome = genes;
+	}
+
 	Genes(Genes* genes)
 	{
 		chromosome.resize(genes->chromosome.size());

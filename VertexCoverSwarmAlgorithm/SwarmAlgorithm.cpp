@@ -27,6 +27,7 @@ SwarmAlgorithm::~SwarmAlgorithm()
 Individual* SwarmAlgorithm::RunAlgorithm()
 {
     std::cout << "---------------------------------------------------------------" << std::endl << "EPOCHS: " << std::endl;
+	PrintPopulation();
 
     auto startTime = std::chrono::high_resolution_clock::now();
 
@@ -50,7 +51,7 @@ Individual* SwarmAlgorithm::RunAlgorithm()
     std::cout << "Time taken: " << duration << " milliseconds\n";
 	/*int x;
 	std::cin >> x;*/
-	PrintPopulation();
+	//PrintPopulation();
 	return new Individual{ GetBestIndividualInPopulation(), true };
 }
 

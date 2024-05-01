@@ -9,12 +9,14 @@
 class Individual
 {
 public:
+    Individual(Genes* chromosomes);
     Individual(Graph* workingGraph, Genes* chromosomes);
     Individual(Graph* workingGraph);
     Individual(Individual* i, bool choice);
     void SetBestIndividualInPopulation(Individual* individ);
     void UpdateGenes();
 
+    void SetGraph(Graph* graph);
     Genes* GetGenes() const;
 
     double GetScore() const;
