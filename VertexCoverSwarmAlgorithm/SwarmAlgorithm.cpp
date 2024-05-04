@@ -27,7 +27,7 @@ SwarmAlgorithm::~SwarmAlgorithm()
 Individual* SwarmAlgorithm::RunAlgorithm()
 {
     std::cout << "---------------------------------------------------------------" << std::endl << "EPOCHS: " << std::endl;
-	PrintPopulation();
+	//PrintPopulation();
 
     auto startTime = std::chrono::high_resolution_clock::now();
 
@@ -69,7 +69,7 @@ void SwarmAlgorithm::MakeIteration()
 		bestIndividualInPopulation = mapOfScores.rbegin()->second[0];
 		bestIndividualAcrossAlgorithm.emplace_back(new Individual{ bestIndividualInPopulation, true });
 	}
-	//std::cout << *bestIndividualInPopulation << std::endl;
+	std::cout << *bestIndividualInPopulation << std::endl;
 	UpdateAllGenes();
 }
 
